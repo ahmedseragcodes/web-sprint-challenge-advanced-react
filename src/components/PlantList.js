@@ -28,9 +28,45 @@ export default class PlantList extends Component {
     })
   }
 
+  //EVENT HANDLERS FOR FILTERING PLANTS
+  showAllPlants=(event)=>{
+    axios.get(`http://localhost:3333/plants`)
+    .then((res)=>{
+      console.log("Successfully Fetched Plants On Plant List Comp", res);
+      this.setState({
+        ...this.state, plants: res.data
+      })
+    })
+    .catch((err)=>{
+      console.log("Failed to Fetch Plants On Plant List Comp", err);
+    })
+  }
+
+  filterByPrice=(event)=>{
+    this.setState({
+      ...this.state, plants: this.state.plants.filter((plt)=>{
+        return plt.price <= 20;
+      })
+    })
+  }
+
+  filterByEasy=(event)=>{
+    this.setState({
+      ...this.state, plants: this.state.plants.filter((plt)=>{
+        return plt.difficulty === "easy";
+      })
+    })
+  }
+
   /*********  DON'T CHANGE ANYTHING IN THE RENDER FUNCTION *********/
   render() {
     return (
+      <div>
+      <div>
+      <button onClick={this.showAllPlants}>Show All Plants</button>
+      <button onClick={this.filterByPrice}>Only Show Plants Under $20</button>
+      <button onClick={this.filterByEasy}>Show Low Maintenance Plants</button>
+      </div>
       <main className="plant-list">
         {this.state?.plants?.map((plant) => (
           <div className="plant-card" key={plant.id} data-testid="plant-card">
@@ -54,6 +90,7 @@ export default class PlantList extends Component {
           </div>
         ))}
       </main>
+      </div>
     );
   }
 }
