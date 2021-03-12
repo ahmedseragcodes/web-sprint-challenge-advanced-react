@@ -15,12 +15,19 @@ function App() {
   // add a plant to the cart
   const addToCart = (plant) => {
     setCart([...cart, plant]);
+    localStorage.setItem("cart", JSON.stringify(cart))
+    console.log("ADDED ITEM TO CART AND LOCAL STORAGE", cart)
   };
 
   // remove a plant from the cart
   const removeFromCart = (plant) => {
     setCart(cart.filter((p) => p.id !== plant.id));
+    localStorage.setItem("cart", JSON.stringify(cart));
   };
+
+  useEffect(()=>{
+   setCart(JSON.parse(localStorage.getItem("cart")))
+  },[])
 
   return (
     <div>
