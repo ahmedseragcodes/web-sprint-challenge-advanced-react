@@ -8,7 +8,7 @@ import CheckoutForm from "./CheckoutForm";
 
 // Write up the two tests here and make sure they are testing what the title shows
 
-test("form header renders", async () => {
+test("form header renders", () => {
 
    render (<CheckoutForm />)
 
@@ -18,7 +18,7 @@ test("form header renders", async () => {
 
 });
 
-test("form shows success message on submit with form details", async () => {
+test("form shows success message on submit with form details", () => {
     render (<CheckoutForm />)
 
     const firstNameInput=screen.getByTestId(/fn/i);
@@ -41,6 +41,6 @@ test("form shows success message on submit with form details", async () => {
     const successText=screen.getByText(/You have ordered some plants! Woo-hoo!/i);
     expect(successText).toBeInTheDocument();
 
-    screen.getByText(/Ahmed Serag/i);
-    
+    const successMessage=screen.getByTestId(/successMessage/i);
+    expect(successMessage).toBeInTheDocument();    
 });

@@ -20,7 +20,7 @@ export default class PlantList extends Component {
     .then((res)=>{
       console.log("Successfully Fetched Plants On Plant List Comp", res);
       this.setState({
-        ...this.state, plants: res.data.plantsData
+        ...this.state, plants: res.data
       })
     })
     .catch((err)=>{
